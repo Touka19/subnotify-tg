@@ -1,4 +1,5 @@
 {
   "subreddit": "technology",
-  "interval": "2000"
+  "sort": "new",
+  "notifyInterval": "2000"
 }
