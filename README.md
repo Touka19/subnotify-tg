@@ -6,7 +6,7 @@ A telegram bot which sends latest posts of subreddit of your choice. According t
 
 ## Demo
 
-![Bot demo](static/subreddit-notify-demo.gif)
+![Bot demo](static/demo.gif)
 
 ## Steps
 
