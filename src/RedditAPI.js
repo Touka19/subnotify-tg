@@ -33,9 +33,8 @@ class RedditAPI {
 
     // Make api call
     try {
-      console.log(`Making a get request to fetch subreddit posts:`);
       const postsResp = await axios.get(subredditAPIUrl);
-      console.log(postsResp.data.postIds);
+      return postsResp.data;
     } catch (error) {
       return posts;
     }

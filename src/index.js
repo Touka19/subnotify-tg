@@ -11,11 +11,37 @@ const reddit = new RedditAPI();
 
 let timer = null;
 
-bot.onText(/\/start/, (msg) => {
-  timer = setInterval(() => {
-    // console.log(msg);
-    bot.sendMessage(msg.chat.id, "hello");
-  }, user_config.notifyInterval);
+const sendPost = async (msg) => {
+  console.log(`${new Date().toLocaleString()} Fetching subreddit posts`);
+
+  const fetchedPosts = await reddit.fetchSubredditPosts(user_config.subreddit, {
+    sort: user_config.sort,
+  });
+  const { postIds, posts } = fetchedPosts;
+
+  const latestPostId = postIds[0];
+  const latestPostDetails = posts[latestPostId];
+
+  const {
+    id,
+    title,
+    permalink,
+    source: { url },
+  } = latestPostDetails;
+
+  // const redditLink = `https://www.reddit.com/r/${user_config.subreddit}/comments/${id}`;
+  bot.sendMessage(
+    msg.chat.id,
+    `${latestPostDetails.title}\nSource: ${url}\n\nReddit: ${permalink}`
+  );
+};
+
+bot.onText(/\/start/, async (msg) => {
+  await sendPost(msg);
+
+  timer = setInterval(async () => {
+    await sendPost(msg);
+  }, user_config.notifyInterval * 60000);
 });
 
 bot.onText(/\/stop/, (message) => {
