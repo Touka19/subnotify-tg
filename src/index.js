@@ -7,11 +7,15 @@ var user_config = JSON.parse(fs.readFileSync("user_config.json"));
 
 const bot = new TelegramBot(BOT_KEY, { polling: true });
 
-// sample: reply back with same message
-bot.on("message", (msg) => {
-  const chatId = msg.chat.id;
-  const replyMsg = msg.text;
+let timer = null;
 
-  // send reply
-  bot.sendMessage(chatId, replyMsg);
+bot.onText(/\/start/, (msg) => {
+  timer = setInterval(() => {
+    // console.log(msg);
+    bot.sendMessage(msg.chat.id, "hello");
+  }, user_config.interval);
+});
+
+bot.onText(/\/stop/, (message) => {
+  clearInterval(timer);
 });
