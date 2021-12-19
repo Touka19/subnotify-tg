@@ -9,6 +9,7 @@ const user_config = JSON.parse(fs.readFileSync("user_config.json"));
 const bot = new TelegramBot(BOT_KEY, { polling: true });
 const reddit = new RedditAPI();
 
+let sentPosts = {};
 let timer = null;
 
 const sendPost = async (msg) => {
@@ -19,21 +20,45 @@ const sendPost = async (msg) => {
   });
   const { postIds, posts } = fetchedPosts;
 
-  const latestPostId = postIds[0];
-  const latestPostDetails = posts[latestPostId];
+  // removing ads, promoted posts
+  let filteredPostIds = postIds.filter((id) => id.length < 15);
+  console.log(filteredPostIds);
+  // find a unique post, thats not sent before
+  let uniquePostId = null;
+  for (let postId of filteredPostIds) {
+    if (sentPosts[user_config.subreddit]) {
+      if (!sentPosts[user_config.subreddit].includes(postId)) {
+        uniquePostId = postId;
+        break;
+      }
+    } else {
+      sentPosts[user_config.subreddit] = [];
+      uniquePostId = postId;
+      break;
+    }
+    console.log(`Skipping ${postId} as previously sent`);
+  }
 
-  const {
-    id,
-    title,
-    permalink,
-    source: { url },
-  } = latestPostDetails;
+  if (uniquePostId !== null) {
+    console.log(`Preparing to send ${uniquePostId}`);
+    const postDetails = posts[uniquePostId];
+    const {
+      id,
+      title,
+      permalink,
+      source: { url },
+    } = postDetails;
 
-  // const redditLink = `https://www.reddit.com/r/${user_config.subreddit}/comments/${id}`;
-  bot.sendMessage(
-    msg.chat.id,
-    `${latestPostDetails.title}\nSource: ${url}\n\nReddit: ${permalink}`
-  );
+    bot.sendMessage(
+      msg.chat.id,
+      `${title}\nSource: ${url}\n\nReddit: ${permalink}`
+    );
+    // register post as sent
+    sentPosts[user_config.subreddit].push(uniquePostId);
+    console.log("Post sent to bot\n--------------------------------");
+  } else {
+    console.log("No new posts left to send!\n--------------------------------");
+  }
 };
 
 bot.onText(/\/start/, async (msg) => {
@@ -46,4 +71,5 @@ bot.onText(/\/start/, async (msg) => {
 
 bot.onText(/\/stop/, (message) => {
   clearInterval(timer);
+  console.log("Bot stopped");
 });
