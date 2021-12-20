@@ -13,7 +13,7 @@ A telegram bot which sends latest posts of subreddit of your choice. According t
 
 ## 🖼️Demo
 
-####Bot demo gif
+###Bot demo gif
 ![Bot Demo](demo/demo.gif)
 More bot screenshots in demo folder
 
