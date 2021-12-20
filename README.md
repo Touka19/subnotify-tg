@@ -1,21 +1,30 @@
-# Subreddit Notify
+# 🔔Subreddit Notify
 
-## Description
+## 📰Description
 
-A telegram bot which sends latest posts of subreddit of your choice. According to the set interval the bot will keep sending the latest updates of the subreddit, untill stopped by the /stop command.
+A telegram bot which sends latest posts of subreddit of your choice. According to the set interval the bot will keep sending the latest updates from the subreddit, untill stopped.
 
-## Features
+## ✨Features
 
 - 🕐Get periodic updates Example: every 5 minutes.
 - 💁Customizable subreddit and interval time.
 - 🔥Unique new posts everytime.
 - ⏮️If no new posts available, it sends an earlier post untill there are latest updates available.
 
-## Demo
+## 🖼️Demo
 
-![Bot demo](static/demo.gif)
+####Bot demo gif
+![Bot Demo](demo/demo.gif)
+More bot screenshots in demo folder
 
-## Steps
+## 🤖Bot commands
+
+- /start - start getting updates
+- /stop - stop getting updates
+- /subreddit - Change the subreddit
+- /help - show all commands
+
+## ⏯️Steps
 
 - npm install: Install dependencies
 - Create telegram bot using [botfather](https://www.siteguarding.com/en/how-to-get-telegram-bot-api-token), and save the API Key
@@ -23,12 +32,17 @@ A telegram bot which sends latest posts of subreddit of your choice. According t
 - npm run dev: Run the server
 - Start the telegram bot with /start command
 
-## Bot commands
+## 👜Packages used
 
-- /start - start getting updates
-- /stop - stop getting updates
-- /help - show all commands
+- node-telegram-bot-api
+- axios
+- dotenv
 
-## Author
+## ✍️Author
 
 Mayur Saroj (https://github.com/mayursarojdev)
+
+## 🔒License
+
+Spotify-Notify
+This program is free software: However give due credits to @mayursarojdev while using and redistributing the program.
