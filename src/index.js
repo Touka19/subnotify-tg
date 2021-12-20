@@ -22,7 +22,7 @@ const sendPost = async (msg) => {
 
   // removing ads, promoted posts
   let filteredPostIds = postIds.filter((id) => id.length < 15);
-  console.log(filteredPostIds);
+  // console.log(filteredPostIds);
   // find a unique post, thats not sent before
   let uniquePostId = null;
   for (let postId of filteredPostIds) {
@@ -67,6 +67,16 @@ bot.onText(/\/start/, async (msg) => {
   timer = setInterval(async () => {
     await sendPost(msg);
   }, user_config.notifyInterval * 60000);
+});
+
+bot.onText(/\/help/, (message) => {
+  bot.sendMessage(
+    message.chat.id,
+    `/start - <b>start getting updates</b>
+/stop - <b>stop getting updates</b>
+/help - <b>show all commands</b>`,
+    { parse_mode: "HTML" }
+  );
 });
 
 bot.onText(/\/stop/, (message) => {
