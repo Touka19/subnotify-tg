@@ -27,13 +27,17 @@ const sendPost = async (message) => {
 
   // removing ads, promoted posts
   let filteredPostIds = postIds.filter((id) => id.length < 15);
-  // find a unique post, thats not sent before
+  // find post to sent
   let uniquePostId = null;
   for (let postId of filteredPostIds) {
     if (sentPosts[subreddit]) {
+      // post thats not sent before
       if (!sentPosts[subreddit].includes(postId)) {
-        uniquePostId = postId;
-        break;
+        // skip pinned posts
+        if (!posts[postId].isStickied) {
+          uniquePostId = postId;
+          break;
+        }
       }
     } else {
       sentPosts[subreddit] = [];
@@ -146,5 +150,30 @@ bot.onText(/\/subreddit (.+)/, async (message, match) => {
         `⚠️This subreddit doesnt exist, please check the name again.`
       );
     }
+  }
+});
+
+bot.onText(/\/sort (.+)/, async (message, match) => {
+  // Change sortType of posts
+  // Prompt available sort types
+  const availableSorts = ["hot", "new", "rising"];
+
+  const newSortType = match[1];
+
+  if (
+    newSortType.toLowerCase() == "hot" ||
+    newSortType.toLowerCase() == "new" ||
+    newSortType.toLowerCase() == "rising"
+  ) {
+    sort = newSortType;
+    bot.sendMessage(message.chat.id, `✅Sort type updated to ${newSortType}`);
+    await startUpdatesInterval(message);
+  } else {
+    bot.sendMessage(
+      message.chat.id,
+      `⚠️Invalid sort type. Available sort types are ${availableSorts.join(
+        ", "
+      )}`
+    );
   }
 });
