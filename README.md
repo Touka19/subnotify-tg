@@ -42,6 +42,7 @@ A telegram bot which sends latest posts of subreddit of your choice. According t
 - /start - start getting updates
 - /stop - stop getting updates
 - /subreddit - Change the subreddit
+- /sort - Change the sort type. Available: hot, new, rising. Example: /sort hot
 - /help - show all commands
 
 ## Steps

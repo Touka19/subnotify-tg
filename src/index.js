@@ -116,7 +116,8 @@ bot.onText(/\/help/, (message) => {
     message.chat.id,
     `/start - start getting updates
 /stop - stop getting updates
-/subreddit - Change the subreddit
+/subreddit - Change the subreddit. Example: /subreddit technology
+/sort - Change the sort type. Available: hot, new, rising. Example: /sort hot
 /help - show all commands`,
     { parse_mode: "HTML" }
   );
