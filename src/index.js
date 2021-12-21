@@ -137,27 +137,25 @@ bot.onText(/\/subreddit (.+)/, async (message, match) => {
       message.chat.id,
       `😴No update needed. Current subreddit already set to ${subreddit}`
     );
-  } else {
-    if (newSubredditName) {
-      // Check if subreddit exists
-      const isValid = await reddit.isValidSubreddit(newSubredditName);
-      if (isValid) {
-        // Stop previous subreddit interval
-        clearInterval(timer);
-        subreddit = newSubredditName;
-        bot.sendMessage(
-          message.chat.id,
-          `✅Subreddit successfully updated, now sending updates from\n<b>r/${newSubredditName}</b> every ${notifyInterval}min`,
-          { parse_mode: "HTML" }
-        );
-        // Start interval updates from new subreddit
-        await startUpdatesInterval(message);
-      } else {
-        bot.sendMessage(
-          message.chat.id,
-          `⚠️This subreddit doesnt exist, please check the name again.`
-        );
-      }
+  } else if (newSubredditName) {
+    // Check if subreddit exists
+    const isValid = await reddit.isValidSubreddit(newSubredditName);
+    if (isValid) {
+      // Stop previous subreddit interval
+      clearInterval(timer);
+      subreddit = newSubredditName;
+      bot.sendMessage(
+        message.chat.id,
+        `✅Subreddit successfully updated, now sending updates from\n<b>r/${newSubredditName}</b> every ${notifyInterval}min`,
+        { parse_mode: "HTML" }
+      );
+      // Start interval updates from new subreddit
+      await startUpdatesInterval(message);
+    } else {
+      bot.sendMessage(
+        message.chat.id,
+        `⚠️This subreddit doesnt exist, please check the name again.`
+      );
     }
   }
 });
@@ -174,27 +172,22 @@ bot.onText(/\/sort (.+)/, async (message, match) => {
       message.chat.id,
       `😴No update needed. Current sort type already set to ${sort}`
     );
-  } else {
-    if (newSortType) {
-      if (
-        newSortType.toLowerCase() == "hot" ||
-        newSortType.toLowerCase() == "new" ||
-        newSortType.toLowerCase() == "rising"
-      ) {
-        sort = newSortType;
-        bot.sendMessage(
-          message.chat.id,
-          `✅Sort type updated to ${newSortType}`
-        );
-        await startUpdatesInterval(message);
-      } else {
-        bot.sendMessage(
-          message.chat.id,
-          `⚠️Invalid sort type. Available sort types are ${availableSorts.join(
-            ", "
-          )}`
-        );
-      }
+  } else if (newSortType) {
+    if (
+      newSortType.toLowerCase() == "hot" ||
+      newSortType.toLowerCase() == "new" ||
+      newSortType.toLowerCase() == "rising"
+    ) {
+      sort = newSortType;
+      bot.sendMessage(message.chat.id, `✅Sort type updated to ${newSortType}`);
+      await startUpdatesInterval(message);
+    } else {
+      bot.sendMessage(
+        message.chat.id,
+        `⚠️Invalid sort type. Available sort types are ${availableSorts.join(
+          ", "
+        )}`
+      );
     }
   }
 });
