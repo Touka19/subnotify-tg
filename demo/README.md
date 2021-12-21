@@ -1,10 +1,13 @@
 ## 📷Screenshots
 
-#### Post Demo
-![Post Demo](/demo/post_demo.png)
+### Post Demo
 
-#### Changing subreddit from where new posts will be fetched
-![subreddit change](/demo/change_sub_demo.png)
+<img alt ='post demo'  src='post_demo.png' width="480">
 
-#### Subreddit validation
-![subreddit validation](/demo/subreddit_validation_demo.png)
+### Changing subreddit from where new posts will be fetched
+
+<img alt ='subreddit change' src='change_sub_demo.png' width="480">
+
+### Subreddit validation
+
+<img  alt="subreddit validation" src='subreddit_validation_demo.png' width="480">

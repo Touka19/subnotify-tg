@@ -13,9 +13,13 @@ A telegram bot which sends latest posts of subreddit of your choice. According t
 
 ## 🖼️Demo
 
-#### Bot demo gif
-![Bot Demo](demo/demo.gif)
-More bot screenshots in demo folder
+### Getting subreddit updates
+
+<img src='demo/start_stop_demo.gif' width="480">
+
+### Validation while changing subreddit
+
+<img src='demo/change_subreddit_demo.gif' width="480">
 
 ## 🤖Bot commands
 
@@ -45,4 +49,5 @@ Mayur Saroj (https://github.com/mayursarojdev)
 ## 🔒License
 
 Spotify-Notify
+
 This program is free software: However give due credits to @mayursarojdev while using and redistributing the program.
