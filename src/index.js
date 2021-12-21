@@ -30,21 +30,16 @@ const sendPost = async (message) => {
   // find post to sent
   let uniquePostId = null;
   for (let postId of filteredPostIds) {
+    // skip pinned post
+    if (posts[postId].isStickied) continue;
+    // is subreddit indexed?
     if (sentPosts[subreddit]) {
-      // post thats not sent before
-      if (!sentPosts[subreddit].includes(postId)) {
-        // skip pinned posts
-        if (!posts[postId].isStickied) {
-          uniquePostId = postId;
-          break;
-        }
-      }
-    } else {
-      sentPosts[subreddit] = [];
-      uniquePostId = postId;
-      break;
-    }
-    console.log(`Skipping ${postId} as previously sent`);
+      // skip if already sent
+      if (sentPosts[subreddit].includes(postId)) continue;
+    } else sentPosts[subreddit] = [];
+
+    uniquePostId = postId;
+    break;
   }
   // send post only if not sent before
   if (uniquePostId !== null) {
