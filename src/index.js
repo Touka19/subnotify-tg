@@ -68,16 +68,16 @@ const sendPost = async (message) => {
     const isMediaPost =
       type === "Image" || type === "Video" || type === "Gallery" ? true : false;
 
-    let typeString = type ? `\n➡️Post type: ${type}` : "";
-    const urlString = url && !isMediaPost ? `\n🌐Source: ${url}` : "";
+    let typeString = type ? `\n➡️ Post type: ${type}` : "";
+    const urlString = url && !isMediaPost ? `\n🌐 Source: ${url}` : "";
 
     // generate preview only if media available
     const previewString =
       preview && isMediaPost
-        ? `\n<a href="${preview}">👀Preview thumbnail</a>`
+        ? `\n<a href="${preview}">👀 Preview thumbnail</a>`
         : "";
 
-    const constructedMsg = `<b>${title}</b>\n\n🚩r/${subreddit}${typeString}${urlString}${previewString}\n\n<a href="${permalink}">🔴${
+    const constructedMsg = `<b>${title}</b>\n\n🚩 r/${subreddit}${typeString}${urlString}${previewString}\n\n<a href="${permalink}">🔴 ${
       isMediaPost ? "View media" : "View on reddit"
     }</a>`;
 
