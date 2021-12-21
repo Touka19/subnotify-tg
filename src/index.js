@@ -14,6 +14,14 @@ const reddit = new RedditAPI();
 let sentPosts = {};
 let timer = null;
 
+// Function to show brief info about subreddit, sort, interval
+const showUpdatesInfo = (message) => {
+  bot.sendMessage(
+    message.chat.id,
+    `🔥 Now sending updates of <b>${sort}</b> posts from\n<b>r/${subreddit}</b> every <b>${notifyInterval} min</b>`,
+    { parse_mode: "HTML" }
+  );
+};
 // Method to fetch and send latest post
 const sendPost = async (message) => {
   console.log(
@@ -83,10 +91,12 @@ const sendPost = async (message) => {
     console.log("No new posts left to send!\n--------------------------------");
   }
 };
-
+// SetInterval for for sending posts at intervals
 const startUpdatesInterval = async (message) => {
   // Remove any previous intervals to prevent multiple setIntervals
   clearInterval(timer);
+  // Show info whenever fresh intervals are set
+  showUpdatesInfo(message);
   // Start sending updates
   await sendPost(message);
 
@@ -95,14 +105,8 @@ const startUpdatesInterval = async (message) => {
   }, notifyInterval * 60000);
 };
 
+// Bot commands
 bot.onText(/\/start/, async (message) => {
-  bot.sendMessage(
-    message.chat.id,
-    `🔥Bot has started, now sending updates from\n<b>r/${subreddit}</b> every ${notifyInterval}min`,
-    {
-      parse_mode: "HTML",
-    }
-  );
   await startUpdatesInterval(message);
 });
 
@@ -139,11 +143,9 @@ bot.onText(/\/subreddit (.+)/, async (message, match) => {
       // Stop previous subreddit interval
       clearInterval(timer);
       subreddit = newSubredditName;
-      bot.sendMessage(
-        message.chat.id,
-        `✅Subreddit successfully updated, now sending updates from\n<b>r/${newSubredditName}</b> every ${notifyInterval}min`,
-        { parse_mode: "HTML" }
-      );
+      bot.sendMessage(message.chat.id, `✅Subreddit updated`, {
+        parse_mode: "HTML",
+      });
       // Start interval updates from new subreddit
       await startUpdatesInterval(message);
     } else {
@@ -174,7 +176,7 @@ bot.onText(/\/sort (.+)/, async (message, match) => {
       newSortType.toLowerCase() == "rising"
     ) {
       sort = newSortType;
-      bot.sendMessage(message.chat.id, `✅Sort type updated to ${newSortType}`);
+      bot.sendMessage(message.chat.id, `✅Sort type updated`);
       await startUpdatesInterval(message);
     } else {
       bot.sendMessage(
