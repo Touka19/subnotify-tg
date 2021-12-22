@@ -81,7 +81,7 @@ const generatePostTemplate = (postDetails) => {
   return postTemplate;
 };
 // To fetch and send fetched post
-const sendPost = async (message) => {
+const sendUpdates = async (message) => {
   const { uniquePostId, posts } = await fetchPostToSend();
 
   if (uniquePostId === null) {
@@ -108,10 +108,10 @@ const startUpdatesInterval = async (message) => {
   // Show info whenever fresh intervals are set
   showUpdatesInfo(message);
   // Start sending updates
-  await sendPost(message);
+  await sendUpdates(message);
 
   timer = setInterval(async () => {
-    await sendPost(message);
+    await sendUpdates(message);
   }, notifyInterval * 60000);
 };
 
