@@ -75,6 +75,6 @@ Mayur Saroj (https://github.com/mayursarojdev)
 
 ## License
 
-Spotify-Notify
+Sudreddit-Notify
 
 This program is free to use, modify and redistribute however give due credits to [@mayursarojdev](https://github.com/mayursarojdev).
