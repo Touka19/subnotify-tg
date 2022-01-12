@@ -1,4 +1,4 @@
-# 🔔Subreddit Notify
+# 🔔Subreddit Notify Telegram Bot
 
 ## Content
 
