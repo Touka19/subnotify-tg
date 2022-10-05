@@ -1,9 +1,9 @@
-require("dotenv").config();
+// require("dotenv").config();
 var fs = require("fs");
 const TelegramBot = require("node-telegram-bot-api");
 const RedditAPI = require("./RedditAPI");
 
-const { BOT_KEY } = process.env.TOKEN;
+const BOT_KEY = process.env.TOKEN;
 let { subreddit, sort, notifyInterval } = JSON.parse(
   fs.readFileSync("user_config.json")
 );
